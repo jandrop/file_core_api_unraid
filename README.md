@@ -1,6 +1,7 @@
 # Unraid File Manager API and UI
 
 **How to install:**
+
 Copy the xml file templates on your Unraid templates directory: /config/plugins/dockerMan/templates-user
 Both containers have to be in the same docker network.
 
