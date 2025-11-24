@@ -1,4 +1,8 @@
-# Unraid File Manager API
+# Unraid File Manager API and UI
+
+**How to install:**
+Copy the xml file templates on your Unraid templates directory: /config/plugins/dockerMan/templates-user
+Both containers have to be in the same docker network.
 
 A RESTful API service for managing files and directories on Unraid servers. Built with FastAPI and designed to run in Docker, this API provides a clean interface for Flutter mobile apps (or any HTTP client) to remotely browse, upload, download, and manage files on your Unraid server.
 
