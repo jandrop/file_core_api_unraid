@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>FileManagerAPI</Name>
+  <Repository>jandrop/file-manager-api:latest</Repository>
+  <Registry>https://hub.docker.com/r/jandrop/file-manager-api</Registry>
+  <Network>swag</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jandrop/file_core_api/issues</Support>
+  <Project>https://github.com/jandrop/file_core_api</Project>
+  <Overview>File Manager API - Backend service for managing files on Unraid shares with a modern REST API.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:8000]/docs</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/jandrop/file_core_api/main/docs/icon.png</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled></DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="API Port" Target="8000" Default="8765" Mode="tcp" Description="Port for API access (default: 8765)" Type="Port" Display="always" Required="true" Mask="false">8765</Config>
+  <Config Name="Base Path" Target="BASE_PATH" Default="/mnt/user" Mode="" Description="Base path for file operations (default: /mnt/user)" Type="Variable" Display="always" Required="true" Mask="false">/mnt/user</Config>
+  <Config Name="Data Volume" Target="/mnt/user" Default="/mnt/user" Mode="rw" Description="Mount Unraid user shares" Type="Path" Display="always" Required="true" Mask="false">/mnt/user</Config>
+  <Config Name="API Key" Target="API_KEY" Default="" Mode="" Description="API key for authentication (leave empty to disable)" Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Debug Mode" Target="DEBUG" Default="false" Mode="" Description="Enable debug mode (true/false)" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="CORS Origins" Target="CORS_ORIGINS" Default='["http://localhost","http://localhost:8080","http://localhost:3000","http://localhost:8764"]' Mode="" Description="Allowed CORS origins (JSON array)" Type="Variable" Display="advanced" Required="false" Mask="false">["http://localhost","http://localhost:8080","http://localhost:3000","http://localhost:8764"]</Config>
+  <Config Name="Max Upload Size" Target="MAX_UPLOAD_SIZE" Default="10737418240" Mode="" Description="Maximum upload size in bytes (default: 10GB)" Type="Variable" Display="advanced" Required="false" Mask="false">10737418240</Config>
+  <Config Name="Show Hidden Files" Target="SHOW_HIDDEN_FILES" Default="false" Mode="" Description="Show hidden files (true/false)" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Enable File Deletion" Target="ENABLE_FILE_DELETION" Default="true" Mode="" Description="Enable file deletion (true/false)" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Enable Recursive Delete" Target="ENABLE_RECURSIVE_DELETE" Default="true" Mode="" Description="Enable recursive directory deletion (true/false)" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+</Container>
