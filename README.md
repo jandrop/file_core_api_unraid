@@ -5,6 +5,19 @@
 Copy the xml file templates on your Unraid templates directory: /config/plugins/dockerMan/templates-user
 Both containers have to be in the same docker network.
 
+<img width="1015" height="872" alt="image" src="https://github.com/user-attachments/assets/748ed7f1-c0f4-47c4-8b24-4a87a04a6bff" />
+<img width="1078" height="866" alt="image" src="https://github.com/user-attachments/assets/cedb7b18-96b6-4f55-93cd-a6bf33a795cc" />
+
+## UI Screenshots
+<img width="1311" height="955" alt="image" src="https://github.com/user-attachments/assets/6002d34f-090e-4717-ba4d-d6943603577d" />
+<img width="822" height="504" alt="image" src="https://github.com/user-attachments/assets/c3c798b7-1e92-4582-818e-957f5774b89e" />
+<img width="1310" height="947" alt="image" src="https://github.com/user-attachments/assets/b36fa35b-b590-411f-97d4-d2e13b7d7ccb" />
+
+
+
+
+
+
 A RESTful API service for managing files and directories on Unraid servers. Built with FastAPI and designed to run in Docker, this API provides a clean interface for Flutter mobile apps (or any HTTP client) to remotely browse, upload, download, and manage files on your Unraid server.
 
 **✨ NEW: Web UI Available!** A modern, production-ready web interface is now included for visual file management. See [Web UI Setup](#web-ui) below.
