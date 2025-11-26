@@ -7,19 +7,19 @@
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/jandrop/file_core_api/issues</Support>
-  <Project>https://github.com/jandrop/file_core_api</Project>
+  <Support>https://github.com/jandrop/file_core_api_unraid/issues</Support>
+  <Project>https://github.com/jandrop/file_core_api_unraid</Project>
   <Overview>File Manager UI - Modern web interface for managing files on Unraid shares. Requires FileManagerAPI to be installed and running.</Overview>
   <Category>Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8764]</WebUI>
   <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/jandrop/file_core_api/main/docs/icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jandrop/file_core_api_unraid/main/docs/icon.png</Icon>
   <ExtraParams>--restart=unless-stopped --link FileManagerAPI:file-manager-api</ExtraParams>
   <PostArgs/>
   <CPUset/>
   <DateInstalled></DateInstalled>
-  <DonateText/>
-  <DonateLink/>
+  <DonateText>Buy me a coffe</DonateText>
+  <DonateLink>https://ko-fi.com/jandrop</DonateLink>
   <Requires>FileManagerAPI must be installed and running first</Requires>
   <Config Name="UI Port" Target="8764" Default="8764" Mode="tcp" Description="Port for web interface access (default: 8764)" Type="Port" Display="always" Required="true" Mask="false">8764</Config>
 </Container>
