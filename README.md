@@ -268,6 +268,9 @@ GET /api/v1/files/disk-usage?path=/mnt/user
 
 | Variable | Description | Default |
 |----------|-------------|---------|
+| `PUID` | User ID for file permissions (linuxserver.io compatible) | `99` (nobody on Unraid) |
+| `PGID` | Group ID for file permissions (linuxserver.io compatible) | `100` (users on Unraid) |
+| `UMASK` | File creation mask | `022` |
 | `DEBUG` | Enable debug mode | `false` |
 | `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["http://localhost","http://localhost:8080","http://localhost:3000"]` |
 | `BASE_PATH` | Base path for file operations | `/mnt/user` |
@@ -279,6 +282,21 @@ GET /api/v1/files/disk-usage?path=/mnt/user
 | `ENABLE_RECURSIVE_DELETE` | Enable recursive directory deletion | `true` |
 | `ENABLE_WEB_UI` | Enable the web UI (documentation only, use docker-compose profiles) | `true` |
 | `UNRAID_DATA_PATH` | Host path to mount (Docker only) | `/mnt/user` |
+
+### User/Group Identifiers (PUID/PGID)
+
+When using volumes, permissions issues can arise between the host OS and the container. To avoid this issue, you can specify the user `PUID` and group `PGID`.
+
+Ensure any volume directories on the host are owned by the same user you specify:
+
+```bash
+# Find your user ID and group ID
+id your_user
+
+# Example output: uid=1000(your_user) gid=1000(your_group) ...
+```
+
+On Unraid, the default values (`PUID=99`, `PGID=100`) correspond to the `nobody` user and `users` group, which is the standard configuration for Unraid shares.
 
 ### API Key Authentication
 
