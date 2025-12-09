@@ -9,7 +9,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/jandrop/file_core_api_unraid/issues</Support>
   <Project>https://github.com/jandrop/file_core_api_unraid</Project>
-  <Overview>File Manager UI - Modern web interface for managing files on Unraid shares. Requires FileManagerAPI to be installed and running.</Overview>
+  <Overview>File Manager UI - Modern web interface for managing files on Unraid shares. Requires FileManagerAPI to be installed and running. If API Key is set on the API, configure it in the browser console: localStorage.setItem('api_key', 'YOUR_KEY')</Overview>
   <Category>Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8764]</WebUI>
   <TemplateURL/>
