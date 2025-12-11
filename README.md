@@ -1,49 +1,117 @@
 # Unraid File Manager API and UI
 
+A RESTful API service for managing files and directories on Unraid servers. Built with FastAPI and designed to run in Docker, this API provides a clean interface for Flutter mobile apps (or any HTTP client) to remotely browse, upload, download, and manage files on your Unraid server.
+
+**Web UI Available!** A modern, production-ready web interface is included with advanced features like dual-pane mode, hardlink management, and more.
+
+## Installation
+
 **How to install:**
 
-Copy the xml file templates on your Unraid templates directory: /config/plugins/dockerMan/templates-user
+Copy the xml file templates on your Unraid templates directory: `/boot/config/plugins/dockerMan/templates-user`
+
 Both containers have to be in the same docker network.
 
 <img width="1015" height="872" alt="image" src="https://github.com/user-attachments/assets/748ed7f1-c0f4-47c4-8b24-4a87a04a6bff" />
 <img width="1078" height="866" alt="image" src="https://github.com/user-attachments/assets/cedb7b18-96b6-4f55-93cd-a6bf33a795cc" />
 
 ## UI Screenshots
+
 <img width="1311" height="955" alt="image" src="https://github.com/user-attachments/assets/6002d34f-090e-4717-ba4d-d6943603577d" />
 <img width="822" height="504" alt="image" src="https://github.com/user-attachments/assets/c3c798b7-1e92-4582-818e-957f5774b89e" />
 <img width="1310" height="947" alt="image" src="https://github.com/user-attachments/assets/b36fa35b-b590-411f-97d4-d2e13b7d7ccb" />
 
-
-
-
-
-
-A RESTful API service for managing files and directories on Unraid servers. Built with FastAPI and designed to run in Docker, this API provides a clean interface for Flutter mobile apps (or any HTTP client) to remotely browse, upload, download, and manage files on your Unraid server.
-
-**✨ NEW: Web UI Available!** A modern, production-ready web interface is now included for visual file management. See [Web UI Setup](#web-ui) below.
-
 ## Features
 
 ### Core API
-- **📁 File Browsing**: Navigate directories and list files with sorting options
-- **📤 File Upload**: Upload files with size limits and validation
-- **📥 File Download**: Download files directly through the API
-- **📂 Directory Operations**: Create and delete directories (with recursive option)
-- **✏️ File Operations**: Move, copy, rename, and delete files
-- **🔍 Search**: Search for files and directories with wildcard support
-- **💾 Disk Usage**: Get disk space information for any path
-- **🔒 Security**: API key authentication and configurable permissions
-- **🌐 CORS Enabled**: Ready for web and mobile apps
-- **🐳 Docker Ready**: Easy deployment with Docker/Docker Compose
 
-### Web UI (Optional)
-- **🎨 Material Design 3**: Modern, polished interface with smooth animations
-- **🌓 Dark/Light Mode**: Toggle themes with persistent preferences
-- **📱 Responsive Design**: Works seamlessly on desktop, tablet, and mobile
-- **⚡ Real-time Updates**: Instant feedback for all file operations
-- **🔄 Drag & Drop**: Easy file uploads with progress tracking
-- **🔍 Live Search**: Filter files as you type
-- **✅ Production Ready**: Professional UI suitable for production use
+#### File Operations
+- **File Browsing**: Navigate directories with sorting (name, size, date, type)
+- **File Upload**: Upload files with progress tracking and size limits
+- **File Download**: Download files with HTTP Range support for streaming
+- **Move/Copy/Rename/Delete**: Full file management with background operation support
+- **Search**: Search files with wildcard support (`*.pdf`, `document*`)
+
+#### Directory Operations
+- **Create Directories**: With optional parent creation
+- **Delete Directories**: With recursive option
+- **Calculate Size**: Get actual size of directories including subdirectories
+
+#### Advanced Features
+- **Background Operations**: Large copy/move operations run in background with progress tracking
+- **Hardlink Support**:
+  - Detect hardlink count for files (`hardlink_count` in file info)
+  - Compare two files (hash, size, inode)
+  - Replace file with hardlink to save disk space
+  - Create hardlinks to existing files
+- **Video Streaming**: HTTP Range Request support for smooth video playback
+- **ETag Caching**: Efficient directory listing with HTTP caching
+- **Disk Usage**: Get disk space information for any path
+
+#### Security & Configuration
+- **API Key Authentication**: Optional but recommended for production
+- **CORS Enabled**: Ready for web and mobile apps
+- **PUID/PGID Support**: linuxserver.io compatible user/group configuration
+- **Path Traversal Protection**: Built-in security against directory traversal attacks
+- **Configurable Permissions**: Enable/disable deletion, recursive operations
+
+### Web UI Features
+
+#### Interface Modes
+- **Single Pane Mode**: Traditional file browser with breadcrumb navigation
+- **Dual Pane Mode**: Midnight Commander-style two-panel interface
+  - Drag & drop files between panels
+  - Keyboard shortcuts (F5-F9, Tab, etc.)
+  - Synchronized navigation option
+  - Directory comparison mode (highlight unique/different files)
+  - Resizable panels with drag separator
+  - Link files between panels (create hardlinks)
+
+#### File Management
+- **Multi-Select**: Select multiple files with Ctrl/Shift+Click or long-press on mobile
+- **Bulk Operations**: Copy, move, delete multiple files at once
+- **Clipboard**: Cut/Copy/Paste files with visual feedback
+- **Context Menus**: Right-click for file operations
+- **Drag & Drop Upload**: Drop files anywhere to upload with progress
+- **Live Search**: Filter files as you type
+
+#### Filtering System
+- **Hardlink Filter**: Show all / with hardlinks / without hardlinks
+- **File Type Filter**: Show all / files only / folders only
+- **Hidden Files Toggle**: Show or hide hidden files
+- **Active Filter Badge**: Visual indicator of active filters
+
+#### Preview & Editing
+- **Image Preview**: Full-screen image viewer with zoom and navigation
+- **Video Preview**: Video player with seeking, fullscreen, and gallery navigation
+- **Smart Thumbnails**: Auto-generated at 30% duration to avoid black intros
+- **Text Editor**: Built-in code editor with syntax highlighting
+- **Scroll Position Restoration**: Return to same position after viewing files
+
+#### User Experience
+- **Material Design 3**: Modern, polished interface with smooth animations
+- **Theme Support**: Light, Dark, and System-preference modes
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Internationalization**: English and Spanish languages
+- **Progress Dialogs**: Visual feedback for all operations
+- **What's New Dialog**: Changelog shown on version updates
+- **Keyboard Shortcuts**: Full keyboard navigation support
+
+#### Dual Pane Keyboard Shortcuts
+| Key | Action |
+|-----|--------|
+| Tab | Switch active panel |
+| F5 | Copy to other panel |
+| F6 | Move to other panel |
+| F7 | Create new folder |
+| F8 | Delete selected |
+| F9 | Link files (hardlink) |
+| Ctrl+1/2 | Focus left/right panel |
+| Ctrl+A | Select all |
+| Ctrl+D | Deselect all |
+| Ctrl+R | Refresh |
+| Ctrl+= | Equalize panel sizes |
+| F1 | Show keyboard shortcuts |
 
 ## Quick Start
 
@@ -53,11 +121,12 @@ A RESTful API service for managing files and directories on Unraid servers. Buil
 - Unraid server with accessible file shares
 - Proper permissions to access `/mnt/user` directory
 
-### Installation
+### Installation via Docker Compose
 
 1. **Clone this repository:**
    ```bash
-   git clone <repository-url>
+   cd /mnt/user/appdata
+   git clone https://github.com/jandrop/file_core_api.git
    cd file_core_api
    ```
 
@@ -68,6 +137,12 @@ A RESTful API service for managing files and directories on Unraid servers. Buil
 
 3. **Edit `.env` and configure your settings:**
    ```env
+   # User/Group (match your Unraid user - find with: id nobody)
+   PUID=99
+   PGID=100
+   UMASK=002
+
+   # File paths
    BASE_PATH=/mnt/user
    API_KEY=your_secret_key_here
    MAX_UPLOAD_SIZE=10737418240
@@ -86,13 +161,13 @@ A RESTful API service for managing files and directories on Unraid servers. Buil
    ```
 
 5. **Access the interfaces:**
-   - **Web UI**: http://localhost:8764 (if enabled)
-   - **API Docs**: http://localhost:8000/docs
-   - **ReDoc**: http://localhost:8000/redoc
+   - **Web UI**: http://your-unraid-ip:8764 (if enabled)
+   - **API Docs**: http://your-unraid-ip:8000/docs
+   - **ReDoc**: http://your-unraid-ip:8000/redoc
 
 ## API Endpoints
 
-### 📁 File Browsing & Information
+### File Browsing & Information
 
 #### List Directory Contents
 ```http
@@ -122,7 +197,8 @@ GET /api/v1/files/browse?path=/mnt/user/documents&sort_by=name&sort_order=asc
       "group": "users",
       "is_hidden": false,
       "extension": "pdf",
-      "mime_type": "application/pdf"
+      "mime_type": "application/pdf",
+      "hardlink_count": 1
     }
   ],
   "total_items": 1,
@@ -135,16 +211,21 @@ GET /api/v1/files/browse?path=/mnt/user/documents&sort_by=name&sort_order=asc
 GET /api/v1/files/info?path=/mnt/user/documents/file.txt
 ```
 
-**Response:** Returns detailed `FileInfo` object
-
-### 📥 Download & Upload
+### Download & Upload
 
 #### Download File
 ```http
 GET /api/v1/files/download?path=/mnt/user/documents/file.txt
 ```
 
-Returns the file as an octet-stream for download.
+Supports HTTP Range requests for video streaming.
+
+#### Preview File
+```http
+GET /api/v1/files/preview?path=/mnt/user/video.mp4
+```
+
+Returns file with correct MIME type for browser preview.
 
 #### Upload File
 ```http
@@ -156,18 +237,7 @@ Content-Type: multipart/form-data
 - `file`: The file to upload
 - `destination_path`: Directory where file should be saved
 
-**Response:**
-```json
-{
-  "success": true,
-  "file_path": "/mnt/user/uploads/document.pdf",
-  "file_name": "document.pdf",
-  "file_size": 1048576,
-  "message": "File uploaded successfully"
-}
-```
-
-### 📂 Directory Operations
+### Directory Operations
 
 #### Create Directory
 ```http
@@ -186,11 +256,17 @@ Content-Type: application/json
 DELETE /api/v1/files/directory?path=/mnt/user/old_folder&recursive=true
 ```
 
-**Parameters:**
-- `path` (required): Directory path to delete
-- `recursive` (optional): Delete directory and all contents (default: false)
+#### Calculate Directory Size
+```http
+POST /api/v1/files/calculate-size
+Content-Type: application/json
 
-### 📄 File Operations
+{
+  "paths": ["/mnt/user/documents", "/mnt/user/media"]
+}
+```
+
+### File Operations
 
 #### Delete File
 ```http
@@ -199,7 +275,7 @@ DELETE /api/v1/files/file?path=/mnt/user/documents/old_file.txt
 
 #### Move File/Directory
 ```http
-POST /api/v1/files/move
+POST /api/v1/files/move?background=true
 Content-Type: application/json
 
 {
@@ -209,9 +285,11 @@ Content-Type: application/json
 }
 ```
 
+Set `background=true` for large operations to get progress tracking.
+
 #### Copy File/Directory
 ```http
-POST /api/v1/files/copy
+POST /api/v1/files/copy?background=true
 Content-Type: application/json
 
 {
@@ -232,7 +310,96 @@ Content-Type: application/json
 }
 ```
 
-### 🔍 Utilities
+### Hardlink Operations
+
+#### Compare Two Files
+```http
+POST /api/v1/files/compare
+Content-Type: application/json
+
+{
+  "file1": "/mnt/user/documents/file1.txt",
+  "file2": "/mnt/user/backup/file1.txt",
+  "compare_hash": true
+}
+```
+
+**Response:**
+```json
+{
+  "file1": "/mnt/user/documents/file1.txt",
+  "file2": "/mnt/user/backup/file1.txt",
+  "are_identical": true,
+  "same_size": true,
+  "same_hash": true,
+  "file1_size": 1024,
+  "file2_size": 1024,
+  "file1_hash": "a1b2c3d4...",
+  "file2_hash": "a1b2c3d4...",
+  "already_hardlinked": false
+}
+```
+
+#### Replace File with Hardlink
+```http
+POST /api/v1/files/replace-hardlink
+Content-Type: application/json
+
+{
+  "source": "/mnt/user/documents/original.txt",
+  "target": "/mnt/user/backup/copy.txt",
+  "force": false
+}
+```
+
+Replaces the target file with a hardlink to the source, saving disk space.
+
+#### Create Hardlink
+```http
+POST /api/v1/files/hardlink
+Content-Type: application/json
+
+{
+  "source": "/mnt/user/documents/original.txt",
+  "destination": "/mnt/user/links/link.txt"
+}
+```
+
+### Background Operations
+
+#### Get Operation Status
+```http
+GET /api/v1/files/operations/{operation_id}
+```
+
+**Response:**
+```json
+{
+  "operation_id": "uuid",
+  "operation_type": "copy",
+  "status": "in_progress",
+  "source": "/mnt/user/source",
+  "destination": "/mnt/user/dest",
+  "total_items": 100,
+  "processed_items": 45,
+  "total_bytes": 104857600,
+  "processed_bytes": 47185920,
+  "progress_percentage": 45.0,
+  "current_file": "file45.txt"
+}
+```
+
+#### List All Operations
+```http
+GET /api/v1/files/operations
+```
+
+#### Cancel Operation
+```http
+DELETE /api/v1/files/operations/{operation_id}
+```
+
+### Utilities
 
 #### Search Files
 ```http
@@ -241,7 +408,7 @@ GET /api/v1/files/search?path=/mnt/user&query=*.pdf&recursive=true
 
 **Parameters:**
 - `path` (required): Directory to search in
-- `query` (required): Search pattern (supports wildcards like `*.pdf`, `document*`)
+- `query` (required): Search pattern (supports wildcards)
 - `recursive` (optional): Search in subdirectories (default: true)
 - `case_sensitive` (optional): Case sensitive search (default: false)
 - `file_type` (optional): Filter by type (file/directory)
@@ -251,16 +418,12 @@ GET /api/v1/files/search?path=/mnt/user&query=*.pdf&recursive=true
 GET /api/v1/files/disk-usage?path=/mnt/user
 ```
 
-**Response:**
-```json
-{
-  "path": "/mnt/user",
-  "total": 1099511627776,
-  "used": 549755813888,
-  "free": 549755813888,
-  "percent": 50.0
-}
+#### Get API Configuration
+```http
+GET /api/v1/files/config
 ```
+
+Returns base_path and other public configuration.
 
 ## Configuration
 
@@ -268,391 +431,58 @@ GET /api/v1/files/disk-usage?path=/mnt/user
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PUID` | User ID for file permissions (linuxserver.io compatible) | `99` (nobody on Unraid) |
-| `PGID` | Group ID for file permissions (linuxserver.io compatible) | `100` (users on Unraid) |
+| `PUID` | User ID for file operations | `99` |
+| `PGID` | Group ID for file operations | `100` |
 | `UMASK` | File creation mask | `022` |
 | `DEBUG` | Enable debug mode | `false` |
-| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["http://localhost","http://localhost:8080","http://localhost:3000"]` |
+| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["http://localhost",...]` |
 | `BASE_PATH` | Base path for file operations | `/mnt/user` |
-| `MAX_UPLOAD_SIZE` | Maximum file upload size in bytes | `10737418240` (10GB) |
+| `MAX_UPLOAD_SIZE` | Maximum upload size in bytes | `10737418240` (10GB) |
 | `SHOW_HIDDEN_FILES` | Show hidden files by default | `false` |
-| `ALLOWED_EXTENSIONS` | Allowed file extensions (JSON array, `["*"]` for all) | `["*"]` |
-| `API_KEY` | API key for authentication (optional) | - |
-| `ENABLE_FILE_DELETION` | Enable file deletion operations | `true` |
-| `ENABLE_RECURSIVE_DELETE` | Enable recursive directory deletion | `true` |
-| `ENABLE_WEB_UI` | Enable the web UI (documentation only, use docker-compose profiles) | `true` |
-| `UNRAID_DATA_PATH` | Host path to mount (Docker only) | `/mnt/user` |
+| `ALLOWED_EXTENSIONS` | Allowed extensions (JSON array) | `["*"]` |
+| `API_KEY` | API key for authentication | - (disabled) |
+| `ENABLE_FILE_DELETION` | Enable file deletion | `true` |
+| `ENABLE_RECURSIVE_DELETE` | Enable recursive deletion | `true` |
+| `UNRAID_DATA_PATH` | Host path to mount | `/mnt/user` |
 
-### User/Group Identifiers (PUID/PGID)
-
-When using volumes, permissions issues can arise between the host OS and the container. To avoid this issue, you can specify the user `PUID` and group `PGID`.
-
-Ensure any volume directories on the host are owned by the same user you specify:
-
-```bash
-# Find your user ID and group ID
-id your_user
-
-# Example output: uid=1000(your_user) gid=1000(your_group) ...
-```
-
-On Unraid, the default values (`PUID=99`, `PGID=100`) correspond to the `nobody` user and `users` group, which is the standard configuration for Unraid shares.
+**Common PUID/PGID values for Unraid:**
+- `PUID=99`, `PGID=100` - nobody:users (recommended)
+- `PUID=0`, `PGID=0` - root (full access, less secure)
 
 ### API Key Authentication
 
-To secure your API, set an API key in `.env`:
-
-```env
-API_KEY=your_secret_key_here
-```
-
-Then include it in requests:
+When `API_KEY` is configured, all endpoints require the `X-API-Key` header:
 
 ```bash
 curl -H "X-API-Key: your_secret_key_here" \
   http://localhost:8000/api/v1/files/browse?path=/mnt/user
 ```
 
-## Usage Examples
-
-### cURL Examples
-
-**Browse directory:**
+Generate a secure key:
 ```bash
-curl "http://localhost:8000/api/v1/files/browse?path=/mnt/user/documents"
+openssl rand -base64 32
 ```
 
-**Upload file:**
-```bash
-curl -X POST \
-  -F "file=@/path/to/local/file.pdf" \
-  -F "destination_path=/mnt/user/uploads" \
-  http://localhost:8000/api/v1/files/upload
-```
-
-**Download file:**
-```bash
-curl -O "http://localhost:8000/api/v1/files/download?path=/mnt/user/file.txt"
-```
-
-**Search for PDF files:**
-```bash
-curl "http://localhost:8000/api/v1/files/search?path=/mnt/user&query=*.pdf"
-```
-
-### Flutter/Dart Example
-
-```dart
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'dart:convert';
-import 'dart:io';
-
-class FileManagerService {
-  final String baseUrl = 'http://your-server-ip:8000';
-  final String? apiKey = 'your_api_key'; // Optional
-
-  Map<String, String> get headers => apiKey != null
-    ? {'X-API-Key': apiKey!}
-    : {};
-
-  // Browse directory
-  Future<Map<String, dynamic>> browseDirectory(String path) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/files/browse?path=$path'),
-      headers: headers,
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to browse directory');
-    }
-  }
-
-  // Upload file
-  Future<Map<String, dynamic>> uploadFile(
-    File file,
-    String destinationPath
-  ) async {
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse('$baseUrl/api/v1/files/upload'),
-    );
-
-    if (apiKey != null) {
-      request.headers['X-API-Key'] = apiKey!;
-    }
-
-    request.files.add(
-      await http.MultipartFile.fromPath(
-        'file',
-        file.path,
-        contentType: MediaType('application', 'octet-stream'),
-      ),
-    );
-
-    request.fields['destination_path'] = destinationPath;
-
-    final response = await request.send();
-    final responseData = await response.stream.bytesToString();
-
-    if (response.statusCode == 200) {
-      return json.decode(responseData);
-    } else {
-      throw Exception('Failed to upload file');
-    }
-  }
-
-  // Download file
-  Future<void> downloadFile(String path, String savePath) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/files/download?path=$path'),
-      headers: headers,
-    );
-
-    if (response.statusCode == 200) {
-      await File(savePath).writeAsBytes(response.bodyBytes);
-    } else {
-      throw Exception('Failed to download file');
-    }
-  }
-
-  // Delete file
-  Future<Map<String, dynamic>> deleteFile(String path) async {
-    final response = await http.delete(
-      Uri.parse('$baseUrl/api/v1/files/file?path=$path'),
-      headers: headers,
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to delete file');
-    }
-  }
-
-  // Rename file
-  Future<Map<String, dynamic>> renameFile(
-    String path,
-    String newName
-  ) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl/api/v1/files/rename'),
-      headers: {...headers, 'Content-Type': 'application/json'},
-      body: json.encode({
-        'path': path,
-        'new_name': newName,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to rename file');
-    }
-  }
-
-  // Search files
-  Future<Map<String, dynamic>> searchFiles(
-    String path,
-    String query
-  ) async {
-    final response = await http.get(
-      Uri.parse(
-        '$baseUrl/api/v1/files/search?path=$path&query=$query&recursive=true'
-      ),
-      headers: headers,
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to search files');
-    }
-  }
-}
-```
-
-## Web UI
-
-### Overview
-
-The File Manager Web UI provides a modern, visual interface for managing your files. It features:
-
-- Material Design 3 styling with smooth animations
-- Dark and light mode with persistent theme
-- Drag-and-drop file uploads
-- Real-time search and filtering
-- Breadcrumb navigation
-- File type icons
-- Responsive design for all devices
-
-### Quick Start
-
-**Start with Web UI:**
-```bash
-docker-compose --profile ui up -d
-```
-
-**Access the UI:**
-Open http://localhost:8764 in your browser
-
-For detailed setup instructions, see [FRONTEND_SETUP.md](FRONTEND_SETUP.md)
-
-### Screenshots
-
-The Web UI provides:
-- Clean file browser with breadcrumb navigation
-- File operations via context menus
-- Upload dialog with progress tracking
-- Dark/light mode toggle
-- Real-time file search
-
-### Configuration
-
-The Web UI is controlled via Docker Compose profiles:
-
-**Enable UI:**
-```bash
-docker-compose --profile ui up -d
-```
-
-**Disable UI (API only):**
-```bash
-docker-compose up -d
-```
-
-For more information, see:
-- [Frontend README](frontend/README.md) - Detailed UI documentation
-- [Frontend Setup Guide](FRONTEND_SETUP.md) - Installation and configuration
-
-## Docker Deployment
-
-### Using Docker Compose (Recommended)
-
-**With Web UI:**
-```bash
-# Start both API and UI
-docker-compose --profile ui up -d
-
-# View logs
-docker-compose --profile ui logs -f
-
-# Stop services
-docker-compose --profile ui down
-```
-
-**API Only:**
-```bash
-# Start API only (no UI)
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop the service
-docker-compose down
-```
-
-### Using Docker Run
-
-```bash
-docker run -d \
-  --name file-manager-api \
-  -p 8000:8000 \
-  -v /mnt/user:/mnt/user \
-  -e BASE_PATH=/mnt/user \
-  -e API_KEY=your_secret_key \
-  file-manager-api
-```
-
-### Unraid Deployment
-
-For detailed Unraid setup instructions, including templates and troubleshooting, see:
-
-📖 **[Unraid Setup Guide](UNRAID_SETUP.md)**
-
-This guide covers:
-- Docker Compose deployment (recommended)
-- Using Unraid Docker templates
-- Fixing common issues (UI restart loops, connectivity problems)
-- Network configuration for API-UI communication
-
-**Quick Unraid Setup:**
-```bash
-# Clone and deploy with Docker Compose
-cd /mnt/user/appdata
-git clone https://github.com/jandrop/file_core_api.git
-cd file_core_api
-cp .env.example .env
-nano .env  # Configure your settings
-docker-compose --profile ui up -d
-```
-
-Access at: `http://your-unraid-ip:8764`
-
-## Development
-
-### Running Locally (without Docker)
-
-1. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Create `.env` file with your settings**
-
-4. **Run the application:**
-   ```bash
-   python main.py
-   ```
-
-The API will be available at http://localhost:8000
-
-### Building the Docker Image
-
-```bash
-docker build -t file-manager-api .
-```
+Configure in Web UI: Menu > API Key > Enter key > Save
 
 ## Security Considerations
 
 - **Use API Key Authentication**: Always set an API_KEY in production
-- **Configure CORS**: Limit CORS_ORIGINS to only your trusted applications
-- **File Permissions**: Ensure proper file system permissions are set
+- **Configure CORS**: Limit CORS_ORIGINS to trusted applications
+- **File Permissions**: Use appropriate PUID/PGID settings
 - **Disable Dangerous Operations**: Set `ENABLE_FILE_DELETION=false` if needed
-- **Reverse Proxy**: Run behind a reverse proxy with HTTPS in production
-- **Network Isolation**: Use Docker networks to isolate the container
-- **Monitor Access**: Check logs regularly for suspicious activity
-- **Path Traversal Protection**: The API includes built-in protection against directory traversal attacks
-- **File Size Limits**: Configure MAX_UPLOAD_SIZE to prevent abuse
+- **Reverse Proxy**: Run behind HTTPS proxy in production
+- **Network Isolation**: Use Docker networks to isolate containers
+- **Path Traversal Protection**: Built-in protection included
 
 ## Troubleshooting
 
 ### Permission Issues
 
-If you get permission errors when accessing files:
-
-1. Check that the Docker container user has proper permissions:
-   ```bash
-   # On Unraid, you may need to match UID/GID
-   # Edit Dockerfile and change: useradd -m -u YOUR_UID appuser
-   ```
-
-2. Ensure volumes are mounted correctly in docker-compose.yml
-
-### Cannot Access Files
-
-1. Verify BASE_PATH is set correctly
-2. Check that UNRAID_DATA_PATH points to the correct host directory
-3. Ensure the directory exists and is accessible
+Configure PUID/PGID to match your Unraid user:
+```bash
+id nobody  # uid=99(nobody) gid=100(users)
+```
 
 ### Upload Fails
 
@@ -660,8 +490,27 @@ If you get permission errors when accessing files:
 2. Verify destination directory exists
 3. Check disk space with `/api/v1/files/disk-usage`
 
+### Video Won't Stream
+
+Ensure the file path is accessible and the MIME type is correctly detected.
+
+### UI Restart Loops
+
+If the UI container keeps restarting, ensure:
+1. Both containers are on the same Docker network
+2. The API container is running and accessible
+3. Network mode is set correctly in container settings
+
 ## API Documentation
 
-Once running, interactive API documentation is available at:
-- **Swagger UI**: http://localhost:8000/docs 
+Interactive documentation available at:
+- **Swagger UI**: http://your-unraid-ip:8000/docs
+- **ReDoc**: http://your-unraid-ip:8000/redoc
 
+## License
+
+MIT License
+
+## Support
+
+For issues and questions, please open an issue on GitHub.
