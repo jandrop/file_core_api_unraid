@@ -3,7 +3,7 @@
   <Name>FileManagerAPI</Name>
   <Repository>jandrop/file-manager-api:latest</Repository>
   <Registry>https://hub.docker.com/r/jandrop/file-manager-api</Registry>
-  <Network>swag</Network>
+  <Network>bridge</Network>
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>

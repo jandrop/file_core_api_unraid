@@ -3,13 +3,13 @@
   <Name>FileManagerUI</Name>
   <Repository>jandrop/file-manager-ui:latest</Repository>
   <Registry>https://hub.docker.com/r/jandrop/file-manager-ui</Registry>
-  <Network>swag</Network>
+  <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/jandrop/file_core_api_unraid/issues</Support>
   <Project>https://github.com/jandrop/file_core_api_unraid</Project>
-  <Overview>File Manager UI - Modern web interface for managing files on Unraid shares. Requires FileManagerAPI to be installed and running. If API Key is set on the API, configure it via Menu > API Key in the web interface.</Overview>
+  <Overview>File Manager UI - Modern web interface for managing files on Unraid shares. Requires FileManagerAPI to be installed and running FIRST. IMPORTANT: The --link parameter in Extra Parameters is REQUIRED for the UI to connect to the API. If the container keeps restarting, verify that FileManagerAPI container exists with that exact name.</Overview>
   <Category>Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8764]</WebUI>
   <TemplateURL/>

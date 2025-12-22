@@ -494,12 +494,51 @@ id nobody  # uid=99(nobody) gid=100(users)
 
 Ensure the file path is accessible and the MIME type is correctly detected.
 
-### UI Restart Loops
+### UI Restart Loops / "host not found in upstream" Error
 
-If the UI container keeps restarting, ensure:
-1. Both containers are on the same Docker network
-2. The API container is running and accessible
-3. Network mode is set correctly in container settings
+If you see this error in the UI logs:
+```
+host not found in upstream "file-manager-api" in /etc/nginx/conf.d/default.conf
+```
+
+This means the UI container cannot find the API container. **Solutions:**
+
+**Option 1: Verify the --link parameter (Recommended)**
+1. The API container MUST be named exactly `FileManagerAPI`
+2. The UI container MUST have this in Extra Parameters: `--link FileManagerAPI:file-manager-api`
+3. Reinstall the UI container if the link wasn't set correctly
+
+**Option 2: Create a Docker network manually**
+```bash
+# Create network
+docker network create file-manager-network
+
+# Connect both containers
+docker network connect file-manager-network FileManagerAPI
+docker network connect file-manager-network FileManagerUI
+
+# Add network alias for API
+docker network disconnect file-manager-network FileManagerAPI
+docker network connect --alias file-manager-api file-manager-network FileManagerAPI
+
+# Restart UI
+docker restart FileManagerUI
+```
+
+**Option 3: Use Host network mode**
+Set both containers to use `host` network mode instead of `bridge`.
+
+**Verification:**
+```bash
+# Check container names
+docker ps --format "table {{.Names}}\t{{.Status}}"
+
+# Test connectivity from UI to API
+docker exec FileManagerUI ping -c 2 file-manager-api
+
+# Check UI logs
+docker logs FileManagerUI --tail 50
+```
 
 ## API Documentation
 
