@@ -4,6 +4,31 @@ A RESTful API service for managing files and directories on Unraid servers. Buil
 
 **Web UI Available!** A modern, production-ready web interface is included with advanced features like dual-pane mode, hardlink management, and more.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [UI Screenshots](#ui-screenshots)
+- [Features](#features)
+  - [Core API](#core-api)
+  - [Web UI Features](#web-ui-features)
+- [Quick Start](#quick-start)
+- [API Endpoints](#api-endpoints)
+  - [File Browsing & Information](#file-browsing--information)
+  - [Download & Upload](#download--upload)
+  - [Directory Operations](#directory-operations)
+  - [File Operations](#file-operations)
+  - [Hardlink Operations](#hardlink-operations)
+  - [Background Operations](#background-operations)
+  - [Utilities](#utilities)
+- [Configuration](#configuration)
+  - [Environment Variables](#environment-variables)
+  - [API Key Authentication](#api-key-authentication)
+- [Security Considerations](#security-considerations)
+- [Troubleshooting](#troubleshooting)
+- [API Documentation](#api-documentation)
+- [License](#license)
+- [Support](#support)
+
 ## Installation
 
 **How to install:**
