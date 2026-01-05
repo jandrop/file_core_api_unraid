@@ -35,7 +35,12 @@ A RESTful API service for managing files and directories on Unraid servers. Buil
 
 Copy the xml file templates on your Unraid templates directory: `/boot/config/plugins/dockerMan/templates-user`
 
-Both containers have to be in the same docker network.
+**Before installing**, create the Docker network that both containers will use:
+```bash
+docker network create file-manager-network
+```
+
+Both containers are configured to use this network automatically.
 
 <img width="1015" height="872" alt="image" src="https://github.com/user-attachments/assets/748ed7f1-c0f4-47c4-8b24-4a87a04a6bff" />
 <img width="1078" height="866" alt="image" src="https://github.com/user-attachments/assets/cedb7b18-96b6-4f55-93cd-a6bf33a795cc" />
@@ -528,23 +533,19 @@ host not found in upstream "file-manager-api" in /etc/nginx/conf.d/default.conf
 
 This means the UI container cannot find the API container. **Solutions:**
 
-**Option 1: Verify the --link parameter (Recommended)**
-1. The API container MUST be named exactly `FileManagerAPI`
-2. The UI container MUST have this in Extra Parameters: `--link FileManagerAPI:file-manager-api`
-3. Reinstall the UI container if the link wasn't set correctly
-
-**Option 2: Create a Docker network manually**
+**Option 1: Verify the Docker network exists (Recommended)**
 ```bash
-# Create network
+# Create the network if it doesn't exist
 docker network create file-manager-network
+```
 
-# Connect both containers
-docker network connect file-manager-network FileManagerAPI
-docker network connect file-manager-network FileManagerUI
+Then reinstall both containers. They are configured to use `file-manager-network` automatically.
 
-# Add network alias for API
-docker network disconnect file-manager-network FileManagerAPI
+**Option 2: Connect existing containers to the network**
+```bash
+# If containers already exist, connect them to the network
 docker network connect --alias file-manager-api file-manager-network FileManagerAPI
+docker network connect file-manager-network FileManagerUI
 
 # Restart UI
 docker restart FileManagerUI
