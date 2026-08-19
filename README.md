@@ -1,3 +1,19 @@
+> ## Deprecated
+>
+> This container is no longer maintained. It has been replaced by the
+> **U-Manager Files** Unraid plugin, which runs natively on the server
+> instead of in Docker. U-Manager 2.0 and later require the plugin.
+>
+> **Plugin:** https://github.com/jandrop/u-manager-files-releases
+>
+> To move over: install the plugin from `Tools > Plugins > Install Plugin`
+> using the `.plg` URL in that repository, then stop and remove the
+> `FileManagerAPI` and `FileManagerUI` containers.
+>
+> The image stays on Docker Hub, so existing installs keep running, but
+> they get no further updates or fixes. This repository is archived and
+> read-only.
+
 # Unraid File Manager API and UI
 
 A RESTful API service for managing files and directories on Unraid servers. Built with FastAPI and designed to run in Docker, this API provides a clean interface for Flutter mobile apps (or any HTTP client) to remotely browse, upload, download, and manage files on your Unraid server.
@@ -578,4 +594,6 @@ MIT License
 
 ## Support
 
-For issues and questions, please open an issue on GitHub.
+This repository is archived, so issues are closed. For anything related to
+the plugin that replaces it, use
+https://github.com/jandrop/u-manager-files-releases
